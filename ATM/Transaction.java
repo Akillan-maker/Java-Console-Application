@@ -1,6 +1,6 @@
 package ATM;
 
-                           // Every method are non-static because different user perform different actions
+// Every method are non-static because different user perform different actions
 
 public class Transaction {
     public String userName;       // A variable username is declared

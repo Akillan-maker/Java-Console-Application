@@ -3,9 +3,8 @@ package ATM;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class User {
-    private String userId;           // Declared a variable to store userId
-    private String userPass;       // Declared a variable to store userPass
+public class User extends Accounts {
+          // Declared a variable to store userPass
     private double balance=0.0;    // Declared a variable to store balance
     public ArrayList<Transaction> userTransaction=new ArrayList<>();    // Created a arraylist of userTransactions
 
@@ -15,37 +14,36 @@ public class User {
 
     }
 
-     public User(String userId,String userPass,Double balance){      // Created a constructor to initialize userId,userPass and balance
+    public User(String userId,String userPass,Double balance){      // Created a constructor to initialize userId,userPass and balance
 
-         this.userId=userId;     // Assigns userId
-         this.userPass=userPass;    // Assigns userPass
-         this.balance =balance;    // Assigns balance
-
-    }
-
-    public String getuserId(){       // Gets the userId
-
-        return userId;   // returns userId
+        super(userId,userPass);  // Assigns userPass
+        this.balance =balance;    // Assigns balance
 
     }
-    public String getuserPass(){      // Gets ussrPass
 
-         return userPass;   // returns userPass
-
-    }
-    public void setUserPass(String userPass){   // Sets userPass
-
-         this.userPass=userPass;  // Assigns userPass
-    }
-
-    public void setUserId(String userId) {  // Sets userId
-
-        this.userId = userId;  // Returns userId
-    }
+//    public String getuserId(){       // Gets the userId
+//
+//        return userId;   // returns userId
+//
+//    }
+//    public String getuserPass(){      // Gets ussrPass
+//
+//        return userPass;   // returns userPass
+//
+//    }
+//    public void setUserPass(String userPass){   // Sets userPass
+//
+//        this.userPass=userPass;  // Assigns userPass
+//    }
+//
+//    public void setUserId(String userId) {  // Sets userId
+//
+//        this.userId = userId;  // Returns userId
+//    }
 
     public double getbalance(){   // Gets balance
 
-         return balance;   // Returns balance
+        return balance;   // Returns balance
 
     }
     public void setbalance(double balance){  // Sets balance

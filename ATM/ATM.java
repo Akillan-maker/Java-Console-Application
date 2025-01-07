@@ -1,14 +1,25 @@
 package ATM;
 
+import ATM.ListofNotes.*;
+import ATM.Note.Notes;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
 public class ATM {
     public static double atm_Balance;     // Declared a variable atmbalance as static(it is only need in ATM)
-    public static ArrayList<Admin> adminList=new ArrayList<>(Arrays.asList(new Admin(Admin.admin_Id,Admin.admin_Pass)));   // Created a arraylist adminlist with a assigned list
+    public static ArrayList<Admin> adminList=new ArrayList<>();   // Created a arraylist adminlist with a assigned list
     public static ArrayList<User> userList=new ArrayList<>();     // Craeted a arraylist userlist
     public static ArrayList<Notes> notesList=new ArrayList<>(Arrays.asList(new TwoThousand("2000",0),new FiveHundred("500",0),new TwoHundred("200",0),new Hundred("100",0)));   // Craeted a noteslist with a assigned list
+
+    public static ArrayList<Accounts> accounts=new ArrayList<>();
+
+    public static ArrayList<Accounts> getAccounts(){
+
+        return accounts;
+
+    }
 
     public static ArrayList<Notes> getNotesList(){   // Gets notelist
 
@@ -42,37 +53,39 @@ public class ATM {
     }
 
 
-    public static void start(Scanner scan) throws CloneNotSupportedException {     // Method start is created and defined
-//        ATM.getUserList().add(new User("1","1",0.0));
+    public static void start(Scanner scan) throws CloneNotSupportedException {      // Method start is created and defined
+        ATM.getAccounts().add(new Admin("Ad01","123"));
+        ATM.getAccounts().add(new User("1","1",0.0));
         while(true){
-        System.out.println("1) Admin\n2) User\n3) Exit\nYou are: ");     // Prints the menu
-        int choice=Integer.parseInt(scan.nextLine());           // Gets the user choice as int
-        switch (choice){                 // Gets the choice to perform assigned action
-            case 1:
-                Admin admin = AdminAction.adminLogin(scan);  // An object admin is created and adminLogin is called
-                if(admin==null)       // If null then it breaks
-                {
+            System.out.println("1) Admin\n2) User\n3) Exit\nYou are: ");     // Prints the menu
+            int choice=Integer.parseInt(scan.nextLine());           // Gets the user choice as int
+            switch (choice){                 // Gets the choice to perform assigned action
+                case 1:
+                    Admin admin = (Admin) AdminAction.adminLogin(scan);   // An object admin is created and adminLogin is called
+                    if(admin==null)       // If null then it breaks
+                    {
+                        System.out.println("No admins found");
+                        break;
+                    }
+                    ATM.adminOptions(scan,admin);           // Calls method adminOptions
                     break;
-                }
-                ATM.adminOptions(scan,admin);           // Calls method adminOptions
-                break;
-            case 2:
-                User user = UserAction.userLogin(scan);   // An object is created and userLogin is called
-                if(user==null)         // If null it breaks
-                {
+                case 2:
+                    User user = (User) UserAction.userLogin(scan);   // An object is created and userLogin is called
+                    if(user==null)         // If null it breaks
+                    {
+                        break;
+                    }
+                    ATM.useroptions(scan,user);     // Method userOptions is called
                     break;
-                }
-                ATM.useroptions(scan,user);     // Method userOptions is called
-                break;
-            case 3:
-                break;
-            default:
-                System.out.println("Invalid option...");     // Prints
+                case 3:
+                    break;
+                default:
+                    System.out.println("Invalid option...");     // Prints
+            }
         }
-        }
-        }
+    }
 
-    public static void adminOptions(Scanner scan,Admin admin) throws CloneNotSupportedException {     // Method adminOptions is created and defined
+    public static void adminOptions(Scanner scan, Accounts admin) throws CloneNotSupportedException {     // Method adminOptions is created and defined
         while(true){
             System.out.println("1) Add User\n2) Delete User\n3) Admin Deposit\n4) View all User\n5) View all Transactions\n6) Exit\n Enter option: ");  // Prints
             int adminchoice=Integer.parseInt(scan.nextLine());        // Gets user choice

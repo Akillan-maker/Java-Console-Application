@@ -1,27 +1,49 @@
 package ATM;
+
+import ATM.Note.Notes;
+
 import java.util.ArrayList;
 import java.util.Scanner;
-import static ATM.ATM.notesList;
-                                               // All the methods are static because every user's operation is same
+
+                   // All the methods are static because every user's operation is same
+
 public class UserAction {
 
-    public static User userLogin(Scanner scan) throws CloneNotSupportedException {   // Method userLogin is created and defined
-        System.out.println("User id: ");
+    public static Accounts userLogin(Scanner scan) throws CloneNotSupportedException {   // Method userLogin is created and defined
+//        System.out.println("User id: ");
+//        String username=scan.nextLine();
+//        for(User user:ATM.getUserList()){
+//            if(user.getuserId().equals(username)){  // Checks the userId
+//                System.out.println("Password: ");
+//                String userpassword=scan.nextLine();
+//                if(user.getuserPass().equals(userpassword)){   // checks userPass
+//                    System.out.println("Login Successful");
+//                    return user;
+//                }
+//                System.out.println("Incorrect Password...Retry!!!");
+//            }
+//        }
+//        System.out.println("Invalid User Id...Retry!!!");
+//       return null;
+
+        System.out.println("User ID: ");
         String username=scan.nextLine();
-        for(User user:ATM.getUserList()){
-            if(user.getuserId().equals(username)){  // Checks the userId
-                System.out.println("Password: ");
-                String userpassword=scan.nextLine();
-                if(user.getuserPass().equals(userpassword)){   // checks userPass
-                    System.out.println("Login Successful");
-                    return user;
+        for(Accounts user:ATM.getAccounts()){
+            if(user instanceof User){
+                if(user.getUserName().equals(username)){
+                    System.out.println("Password: ");
+                    String userpass=scan.nextLine();
+                    if(user.getUserPass().equals(userpass)){
+                        System.out.println("Login Successful...");
+                        return user;
+                    }
                 }
-                System.out.println("Incorrect Password...Retry!!!");
             }
         }
-        System.out.println("Invalid User Id...Retry!!!");
+        System.out.println("Login Failed...");
         return null;
     }
+
 
     public static void userDeposit(Scanner scan,User currentuser){   // Method userDeposit is created and defined
         System.out.println("Deposit Amount: ");
@@ -62,8 +84,8 @@ public class UserAction {
             for(Notes note:ATM.getNotesList()) {
                 System.out.println("No.of " + note.getNote() + " are " + note.getNotecount());
             }
-            currentuser.getUserTransaction().add(new Transaction(currentuser.getuserId(), " Deposited", (long) userDeposit));   // Adds obj to usertransaction
-            System.out.println(currentuser.getuserId() + " has deposited " + userDeposit);
+//            currentuser.getUserTransaction().add(new Transaction(currentuser.getuserId(), " Deposited", (long) userDeposit));   // Adds obj to usertransaction
+//            System.out.println(currentuser.getuserId() + " has deposited " + userDeposit);
             System.out.println("AtmBalance: "+ATM.atm_Balance);
             return;
         }
@@ -71,12 +93,12 @@ public class UserAction {
         return;
     }
 
-    public static long withdrawOperation(long userWithdraw,Notes note,ArrayList<String> dinominations){   // Method withdrawOperation is created and defined
+    public static long withdrawOperation(long userWithdraw, Notes note, ArrayList<String> denominations){   // Method withdrawOperation is created and defined
         long count= userWithdraw/Integer.parseInt(note.getNote());    // Divides the withdraw amt with respective notes
         if(Long.parseLong(note.getNote()) <= userWithdraw && count <= note.getNotecount()){
             userWithdraw = userWithdraw - (count * Integer.parseInt(note.getNote()));
             note.setNotecount((note.getNotecount() - count));      // Minus the count
-            dinominations.add("You got "+note.getNote()+"  count: "+count);
+            denominations.add("You got "+note.getNote()+"  count: "+count);
             return userWithdraw;
         }
         return userWithdraw;
@@ -110,7 +132,7 @@ public class UserAction {
                     currentuser.setbalance(currentuser.getbalance() - dupwithdrawam);  // Sets balance os currentuser
                     ATM.setatmBalance(ATM.getatmBalance()- dupwithdrawam);   // Sets the balance of atm
                     System.out.println("Withdraw Successful...");
-                    currentuser.getUserTransaction().add(new Transaction(currentuser.getuserId(), "Withdrawn", dupwithdrawam));    // Adds the object to usertransactions
+//                    currentuser.getUserTransaction().add(new Transaction(currentuser.getuserId(), "Withdrawn", dupwithdrawam));    // Adds the object to usertransactions
 //                System.out.println(currentuser.getuserId()+" has withdrawn "+dupwithdrawam);
                     System.out.println("AtmBalance: " + ATM.atm_Balance);
                     for (String str : denominations) {
@@ -132,7 +154,7 @@ public class UserAction {
     public static void changePin(Scanner scan,User currentuser){    // Method changePin is created and defined
         System.out.println("OldPass: ");
         String oldPass=scan.nextLine();
-        if(oldPass.equals(currentuser.getuserPass())){
+        if(oldPass.equals(currentuser.getUserPass())){
             System.out.println("New Password: ");
             String newPass=scan.nextLine();
             currentuser.setUserPass(newPass);    // Sets newPass
