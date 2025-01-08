@@ -9,10 +9,7 @@ import java.util.Scanner;
 
 public class ATM {
     public static double atm_Balance;     // Declared a variable atmbalance as static(it is only need in ATM)
-    public static ArrayList<Admin> adminList=new ArrayList<>();   // Created a arraylist adminlist with a assigned list
-    public static ArrayList<User> userList=new ArrayList<>();     // Craeted a arraylist userlist
     public static ArrayList<Notes> notesList=new ArrayList<>(Arrays.asList(new TwoThousand("2000",0),new FiveHundred("500",0),new TwoHundred("200",0),new Hundred("100",0)));   // Craeted a noteslist with a assigned list
-
     public static ArrayList<Accounts> accounts=new ArrayList<>();
 
     public static ArrayList<Accounts> getAccounts(){
@@ -32,16 +29,6 @@ public class ATM {
 
     }
 
-    public static ArrayList<Admin> getAdminList(){     // Gets adminlist
-
-        return adminList;   // Returns adminlist
-
-    }
-    public static ArrayList<User> getUserList(){   // Gets userlist
-
-        return userList;  // Returns userlist
-
-    }
     public static double getatmBalance(){   // Gets atmbalance
 
         return atm_Balance;   // returns atmbalance

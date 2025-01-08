@@ -22,11 +22,6 @@ public class Notes implements Cloneable{
         return notecount; // Returns notecount
 
     }
-//    public void setNote(String note){  // Sets note
-//
-//        this.note=note;
-//
-//    }
 
     public void setNotecount(long notecount) {   // Sets notecount
 

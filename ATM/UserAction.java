@@ -10,21 +10,6 @@ import java.util.Scanner;
 public class UserAction {
 
     public static Accounts userLogin(Scanner scan) throws CloneNotSupportedException {   // Method userLogin is created and defined
-//        System.out.println("User id: ");
-//        String username=scan.nextLine();
-//        for(User user:ATM.getUserList()){
-//            if(user.getuserId().equals(username)){  // Checks the userId
-//                System.out.println("Password: ");
-//                String userpassword=scan.nextLine();
-//                if(user.getuserPass().equals(userpassword)){   // checks userPass
-//                    System.out.println("Login Successful");
-//                    return user;
-//                }
-//                System.out.println("Incorrect Password...Retry!!!");
-//            }
-//        }
-//        System.out.println("Invalid User Id...Retry!!!");
-//       return null;
 
         System.out.println("User ID: ");
         String username=scan.nextLine();
@@ -80,17 +65,15 @@ public class UserAction {
             currentuser.setbalance(currentuser.getbalance() + userDeposit);     // Sets currentuser balance
             ATM.setatmBalance(ATM.getatmBalance() + userDeposit);    // Sets atmbalance
             System.out.println("Deposited Successfully...");
-//            ATM.setNotesList(twoThousand,fiveHundred,twoHundred,hundred);
             for(Notes note:ATM.getNotesList()) {
                 System.out.println("No.of " + note.getNote() + " are " + note.getNotecount());
             }
-//            currentuser.getUserTransaction().add(new Transaction(currentuser.getuserId(), " Deposited", (long) userDeposit));   // Adds obj to usertransaction
-//            System.out.println(currentuser.getuserId() + " has deposited " + userDeposit);
+            currentuser.getTransactions().add(new Transaction(currentuser.getUserName(), " Deposited", (long) userDeposit));   // Adds obj to usertransaction
+            System.out.println(currentuser.getUserName() + " has deposited " + userDeposit);
             System.out.println("AtmBalance: "+ATM.atm_Balance);
             return;
         }
         System.out.println("Invalid No.of Notes...");
-        return;
     }
 
     public static long withdrawOperation(long userWithdraw, Notes note, ArrayList<String> denominations){   // Method withdrawOperation is created and defined
@@ -132,8 +115,6 @@ public class UserAction {
                     currentuser.setbalance(currentuser.getbalance() - dupwithdrawam);  // Sets balance os currentuser
                     ATM.setatmBalance(ATM.getatmBalance()- dupwithdrawam);   // Sets the balance of atm
                     System.out.println("Withdraw Successful...");
-//                    currentuser.getUserTransaction().add(new Transaction(currentuser.getuserId(), "Withdrawn", dupwithdrawam));    // Adds the object to usertransactions
-//                System.out.println(currentuser.getuserId()+" has withdrawn "+dupwithdrawam);
                     System.out.println("AtmBalance: " + ATM.atm_Balance);
                     for (String str : denominations) {
                         System.out.println(str);
@@ -165,7 +146,7 @@ public class UserAction {
     }
 
     public static void viewTransaction(Scanner scan,User currentuser){      // Method viewtransactionns is created and defined
-        for(Transaction user:currentuser.getUserTransaction()){
+        for(Transaction user:currentuser.getTransactions()){
             System.out.println(user.getuserName()+" has "+user.getType()+" Rs."+user.getAmount());
         }
     }
